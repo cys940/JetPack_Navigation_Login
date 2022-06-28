@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="kr.gmtc.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_loginPinFragment"
+            app:destination="@id/loginPinFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_loginPatternFragment"
+            app:destination="@id/loginPatternFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_loginResgistPwFragment"
+            app:destination="@id/loginResgistPwFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginResgistPwFragment"
+        android:name="kr.gmtc.login.LoginResgistPwFragment"
+        android:label="fragment_login_resgist_pw"
+        tools:layout="@layout/fragment_login_resgist_pw" >
+        <action
+            android:id="@+id/action_loginResgistPwFragment_to_loginRegistPinFragment"
+            app:destination="@id/loginRegistPinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginRegistPinFragment"
+        android:name="kr.gmtc.login.LoginRegistPinFragment"
+        android:label="fragment_login_regist_pin"
+        tools:layout="@layout/fragment_login_regist_pin" >
+        <action
+            android:id="@+id/action_loginRegistPinFragment_to_loginRegistPatternFragment"
+            app:destination="@id/loginRegistPatternFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginRegistPatternFragment"
+        android:name="kr.gmtc.login.LoginRegistPatternFragment"
+        android:label="fragment_login_regist_pattern"
+        tools:layout="@layout/fragment_login_regist_pattern" />
+    <fragment
+        android:id="@+id/loginPinFragment"
+        android:name="kr.gmtc.login.LoginPinFragment"
+        android:label="fragment_login_pin"
+        tools:layout="@layout/fragment_login_pin" />
+    <fragment
+        android:id="@+id/loginPatternFragment"
+        android:name="kr.gmtc.login.LoginPatternFragment"
+        android:label="fragment_login_pattern"
+        tools:layout="@layout/fragment_login_pattern" />
+</navigation>
