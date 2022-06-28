@@ -10,6 +10,7 @@ public class User {
     private String userPinNm;
     private String userPattern;
     private Date createDT = new Date();
+    private Date updateDT = new Date();
     private HashMap<Integer, UserPastLog> userPastPwLogs = new HashMap<>();
     private HashMap<Integer, UserPastLog> userPastPinLogs = new HashMap<>();
     private HashMap<Integer, UserPastLog> userPastPatternLogs = new HashMap<>();
@@ -60,6 +61,16 @@ public class User {
 
     public void setCreateDT(Date createDT) {
         this.createDT = createDT;
+    }
+
+    public Date getUpdateDT() {
+        return updateDT;
+    }
+
+    public User setUpdateDT(Date updateDT) {
+        this.updateDT = updateDT;
+
+        return this;
     }
 
     public HashMap<Integer, UserPastLog> getUserPastPwLogs() {

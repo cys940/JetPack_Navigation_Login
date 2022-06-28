@@ -1,6 +1,5 @@
 package kr.gmtc.login;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -11,7 +10,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,14 +115,34 @@ public class LoginFragment extends Fragment
         mLoginTypePw = mView.findViewById(R.id.chk_user_type_pw);
         mLoginTypePin = mView.findViewById(R.id.chk_user_type_pin);
         mLoginTypePattern = mView.findViewById(R.id.chk_user_type_pattern);
-
         mLoginTypes.setVisibility(View.GONE);
         isExpand = false;
 
-        addListener();
+        setLoginType();
+        setListener();
     }
 
-    private void addListener(){
+    private void setLoginType(){
+        switch (LoginManager.getInstance().getLoginType()) {
+            case PASSWORD:
+                mLoginTypePw.setChecked(true);
+                mLoginTypePin.setChecked(false);
+                mLoginTypePattern.setChecked(false);
+                break;
+            case PIN:
+                mLoginTypePw.setChecked(false);
+                mLoginTypePin.setChecked(true);
+                mLoginTypePattern.setChecked(false);
+                break;
+            case PATTERN:
+                mLoginTypePw.setChecked(false);
+                mLoginTypePin.setChecked(false);
+                mLoginTypePattern.setChecked(true);
+                break;
+        }
+    }
+
+    private void setListener(){
         mLoginUserIdContainer.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

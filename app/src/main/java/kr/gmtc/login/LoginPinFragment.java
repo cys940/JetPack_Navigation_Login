@@ -1,6 +1,5 @@
 package kr.gmtc.login;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -122,14 +121,34 @@ public class LoginPinFragment extends Fragment
         mPinLockView.attachIndicatorDots(mPinIndicatorDots);
         mPinLockView.setPinLength(6);
         mPinLockView.enableLayoutShuffling();
-
         mLoginTypes.setVisibility(View.GONE);
         isExpand = false;
 
-        addListener();
+        setLoginType();
+        setListener();
     }
 
-    private void addListener(){
+    private void setLoginType(){
+        switch (LoginManager.getInstance().getLoginType()) {
+            case PASSWORD:
+                mLoginTypePw.setChecked(true);
+                mLoginTypePin.setChecked(false);
+                mLoginTypePattern.setChecked(false);
+                break;
+            case PIN:
+                mLoginTypePw.setChecked(false);
+                mLoginTypePin.setChecked(true);
+                mLoginTypePattern.setChecked(false);
+                break;
+            case PATTERN:
+                mLoginTypePw.setChecked(false);
+                mLoginTypePin.setChecked(false);
+                mLoginTypePattern.setChecked(true);
+                break;
+        }
+    }
+
+    private void setListener(){
         mPinLockView.setPinLockListener(new PinLockListener() {
             @Override
             public void onComplete(String pin) {

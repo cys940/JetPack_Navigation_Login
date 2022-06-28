@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import kr.gmtc.login.FinishActivity;
@@ -16,6 +14,9 @@ import kr.gmtc.login.config.LoginConfig;
 import kr.gmtc.login.config.LoginErrors;
 
 public class LoginManager {
+    private static final String REG_SYMBOL = "([0-9].*[!,@,#,^,&,*,(,)])|([!,@,#,^,&,*,(,)].*[0-9])"; //특수문자포함
+    private static final String REG_CASES = "([a-z].*[A-Z])|([A-Z].*[a-z])"; //대소문자
+
     private static LoginManager INSTANCE = null;
     static public LoginManager getInstance() {
         if (INSTANCE == null)
@@ -91,18 +92,16 @@ public class LoginManager {
         return users.size() > 0;
     }
 
-    private boolean isVaildPinLength(String userPin, int length){
+    private boolean isVaildLength(String userPin, int length){
         return userPin.trim().length() == length;
     }
 
     private boolean isVaildPw(String userPw){
-        String symbol = "([0-9].*[!,@,#,^,&,*,(,)])|([!,@,#,^,&,*,(,)].*[0-9])";
-        String cases = "([a-z].*[A-Z])|([A-Z].*[a-z])";
-        Pattern patternSymbol = Pattern.compile(symbol);
-        Pattern patternCases = Pattern.compile(cases);
+        if (Pattern.compile(REG_SYMBOL).matcher(userPw).find()
+                && Pattern.compile(REG_CASES).matcher(userPw).find()){
 
-        if (patternSymbol.matcher(userPw).find() && patternCases.matcher(userPw).find())
             return true;
+        }
 
         return false;
     }
@@ -174,7 +173,7 @@ public class LoginManager {
     public void tryToRegistPinNm(String password){
         if (editableUserId == null || editableUserId.trim().isEmpty()) {
             notifyFail(LoginErrors.ERR_CODE_ID, -1);
-        } else if (password == null || password.trim().isEmpty() || !isVaildPinLength(password, 6)){
+        } else if (password == null || password.trim().isEmpty() || !isVaildLength(password, 6)){
             notifyFail(LoginErrors.ERR_CODE_PW_LENGTH, -1);
         } else {
             //TODO 등록하는 로직 필요
@@ -185,7 +184,7 @@ public class LoginManager {
     public void tryToRegistPattern(String password){
         if (editableUserId == null || editableUserId.trim().isEmpty()) {
             notifyFail(LoginErrors.ERR_CODE_ID, -1);
-        } else if (password == null || password.trim().isEmpty() || !isVaildPinLength(password, 9)){
+        } else if (password == null || password.trim().isEmpty() || !isVaildLength(password, 9)){
             notifyFail(LoginErrors.ERR_CODE_PW_LENGTH, -1);
         } else {
             //TODO 등록하는 로직 필요
